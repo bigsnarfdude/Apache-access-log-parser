@@ -5,17 +5,15 @@ import re
 import os
 from manager import PluginManager
 
-DIRECTIVE_MAP = {
-                  '%h':  'remote_host',
-                  '%l':  'remote_logname',
-                  '%u':  'remote_user',
-                  '%t':  'time_stamp',
-                  '%r':  'request_line',
-                  '%>s': 'status',
-                  '%b':  'response_size',
-                  '%{Referer}i':    'referer_url',
-                  '%{User-Agent}i': 'user_agent',
-                }
+LOG_MAPPINGS = {'%h':  'remote_host',
+                '%l':  'remote_logname',
+                '%u':  'remote_user',
+                '%t':  'time_stamp',
+                '%r':  'request_line',
+                '%>s': 'status',
+                '%b':  'respon/se_size',
+                '%{Referer}i':    'referer_url',
+                '%{User-Agent}i': 'user_agent',}
 
 
 class LogLineGenerator:
@@ -29,20 +27,20 @@ class LogLineGenerator:
         self.re_tsquote = re.compile(r'(\[|\])')
         self.field_list = []
         for directive in self.format_string.split(' '):
-            self.field_list.append(DIRECTIVE_MAP[directive])
+            self.field_list.append(LOG_MAPPINGS[directive])
     
     def _quote_translator(self, file_name):
         for line in open(file_name):
             yield self.re_tsquote.sub('"', line)
 
-    def _file_list(self):
+    def _get_file_list(self):
         for file in os.listdir(self.log_dir):
             file_name = "%s/%s" % (self.log_dir, file)
             if os.path.isfile(file_name):
                 yield file_name
 
     def get_loglines(self):
-        for file in self._file_list():
+        for file in self._get_file_list():
             reader = csv.DictReader(self._quote_translator(file), fieldnames=self.field_list, delimiter=' ', quotechar='"')
             for line in reader:
                 yield line

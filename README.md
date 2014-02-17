@@ -1,13 +1,11 @@
 Apache access log parser
 ========================
 
-A simple application that allows you to write custom plugins to exctract the 
-statistical data from the Apache web server access logs.
+Application allows you to write custom plugins to exctract
+data from the Apache web server access logs, including data enrichment.
 
-The application was initially developed as an example for one of the 
-["Pro Python System Administration"](http://apress.com/book/view/9781430226055) book chapters.
-
-You can find more information about the application on [the project website](http://www.sysadminpy.com).
+Fork of project found at:
+http://www.sysadminpy.com
 
 Application structure
 ---------------------
@@ -83,7 +81,7 @@ Running the main application will automaticaly load all the available plug-in
 modules from the `plugins` directory. All files in the `logs` directory
 are considered to be the Apache web server log files.
 
-    $ ./http_log_parser.py 
+    $ python ./http_log_parser.py logs/access.log 
     == Requests by country ==
             382: United States
             258: Sweden
