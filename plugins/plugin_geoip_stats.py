@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-
 from manager import Plugin
 from operator import itemgetter
-import GeoIP
+
+import pygeoip
 
 class GeoIPStats(Plugin):
 
     def __init__(self, **kwargs):
-        self.gi = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
+        self.gi = pygeoip.GeoIP('/Users/antigen/dev/Apache-access-log-parser/geo_data_files/GeoIP.dat')
         self.countries = {}
 
     def process(self, **kwargs):
@@ -22,5 +22,4 @@ class GeoIPStats(Plugin):
         print "== Requests by country =="
         for (country, count) in sorted(self.countries.iteritems(), key=itemgetter(1), reverse=True):
             print " %10d: %s" % (count, country)
-        
 

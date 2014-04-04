@@ -30,11 +30,6 @@ class PluginManager():
             obj = plugin(**kwargs)
             self.plugins[obj] = obj.keywords if hasattr(obj, 'keywords') else []
 
-    def call_method(self, method, args={}, keywords=[]):
+    def call_method(self, method, args={}):
         for plugin in self.plugins:
-            if not keywords or (set(keywords) & set(self.plugins[plugin])):
-                try:
-                    getattr(plugin, method)(**args)
-                except:
-                    pass
-
+            getattr(plugin, method)(**args)

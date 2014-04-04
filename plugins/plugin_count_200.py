@@ -3,6 +3,9 @@
 from manager import Plugin
 
 class CountHTTP200(Plugin):
+    """
+    This Class object counts HTTP 200 status codes
+    """
 
     def __init__(self, **kwargs):
         self.keywords = ['counter']
@@ -10,6 +13,8 @@ class CountHTTP200(Plugin):
         self.counter_total = 0
 
     def process(self, **kwargs):
+        print kwargs
+        print kwargs['status']
         if 'status' in kwargs:
             self.counter_total += 1
             if kwargs['status'] == '200':

@@ -5,15 +5,15 @@ import re
 import os
 from manager import PluginManager
 
-LOG_MAPPINGS = {'%h':  'remote_host',
-                '%l':  'remote_logname',
-                '%u':  'remote_user',
-                '%t':  'time_stamp',
-                '%r':  'request_line',
-                '%>s': 'status',
-                '%b':  'respon/se_size',
-                '%{Referer}i':    'referer_url',
-                '%{User-Agent}i': 'user_agent',}
+FEILD_MAPPINGS = {'%h': 'remote_host',
+                  '%l': 'remote_logname',
+                  '%u': 'remote_user',
+                  '%t': 'time_stamp',
+                  '%r': 'request_line',
+                 '%>s': 'status',
+                  '%b': 'response_size',
+         '%{Referer}i': 'referer_url',
+      '%{User-Agent}i': 'user_agent',}
 
 
 class LogLineGenerator:
@@ -27,7 +27,7 @@ class LogLineGenerator:
         self.re_tsquote = re.compile(r'(\[|\])')
         self.field_list = []
         for directive in self.format_string.split(' '):
-            self.field_list.append(LOG_MAPPINGS[directive])
+            self.field_list.append(FEILD_MAPPINGS[directive])
     
     def _quote_translator(self, file_name):
         for line in open(file_name):
@@ -53,4 +53,7 @@ def main():
     plugin_manager.call_method('report')
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except:
+        pass
