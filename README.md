@@ -1,7 +1,7 @@
 Apache access log parser
 ========================
 
-Application allows you to write custom plugins to exctract
+Application allows you to write custom plugins to extract
 data from the Apache web server access logs, including data enrichment.
 
 Fork of project found at:
