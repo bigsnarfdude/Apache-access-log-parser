@@ -1,11 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import csv
 import re
 import os
+import sys
+import traceback
 from manager import PluginManager
 
-FEILD_MAPPINGS = {'%h': 'remote_host',
+FIELD_MAPPINGS = {'%h': 'remote_host',
                   '%l': 'remote_logname',
                   '%u': 'remote_user',
                   '%t': 'time_stamp',
@@ -27,7 +29,7 @@ class LogLineGenerator:
         self.re_tsquote = re.compile(r'(\[|\])')
         self.field_list = []
         for directive in self.format_string.split(' '):
-            self.field_list.append(FEILD_MAPPINGS[directive])
+            self.field_list.append(FIELD_MAPPINGS[directive])
     
     def _quote_translator(self, file_name):
         for line in open(file_name):
@@ -35,7 +37,7 @@ class LogLineGenerator:
 
     def _get_file_list(self):
         for file in os.listdir(self.log_dir):
-            file_name = "%s/%s" % (self.log_dir, file)
+            file_name = os.path.join(self.log_dir, file)
             if os.path.isfile(file_name):
                 yield file_name
 
@@ -55,5 +57,13 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except:
-        pass
+    except FileNotFoundError as e:
+        print(f"Error: Log file or directory not found - {e}")
+        sys.exit(1)
+    except KeyError as e:
+        print(f"Error: Invalid log format or missing field - {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Error: An unexpected error occurred - {e}")
+        traceback.print_exc()
+        sys.exit(1)
