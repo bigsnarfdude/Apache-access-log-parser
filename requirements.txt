@@ -1,0 +1,7 @@
+# Apache Access Log Parser Dependencies
+
+# GeoIP library for geographic location lookups
+pygeoip>=0.3.2
+
+# Google Maps library for map generation
+pygmaps>=0.1.1

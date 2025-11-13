@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from manager import Plugin
 
@@ -16,6 +16,6 @@ class CountHTTP404(Plugin):
                 self.counter_404 += 1
 
     def report(self, **kwargs):
-        print '== HTTP code 404 counter =='
-        print "HTTP 404 responses: %d" % self.counter_404
-        print "All responses: %d" % self.counter_total
+        print('== HTTP code 404 counter ==')
+        print(f"HTTP 404 responses: {self.counter_404}")
+        print(f"All responses: {self.counter_total}")

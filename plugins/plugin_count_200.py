@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from manager import Plugin
 
@@ -13,14 +13,14 @@ class CountHTTP200(Plugin):
         self.counter_total = 0
 
     def process(self, **kwargs):
-        print kwargs
-        print kwargs['status']
+        print(kwargs)
+        print(kwargs['status'])
         if 'status' in kwargs:
             self.counter_total += 1
             if kwargs['status'] == '200':
                 self.counter_200 += 1
 
     def report(self, **kwargs):
-        print '== HTTP code 200 counter =='
-        print "HTTP 200 responses: %d" % self.counter_200
-        print "All responses: %d" % self.counter_total
+        print('== HTTP code 200 counter ==')
+        print(f"HTTP 200 responses: {self.counter_200}")
+        print(f"All responses: {self.counter_total}")

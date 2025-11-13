@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from manager import Plugin
 
@@ -16,6 +16,6 @@ class CountHTTP500(Plugin):
                 self.counter_500 += 1
 
     def report(self, **kwargs):
-        print '== HTTP code 500 counter =='
-        print "HTTP 500 responses: %d" % self.counter_500
-        print "All responses: %d" % self.counter_total
+        print('== HTTP code 500 counter ==')
+        print(f"HTTP 500 responses: {self.counter_500}")
+        print(f"All responses: {self.counter_total}")
